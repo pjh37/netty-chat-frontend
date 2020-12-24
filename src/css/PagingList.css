@@ -1,0 +1,11 @@
+#pageList{
+    display: flex;
+}
+
+.paging-list{
+    justify-content: center;
+}
+
+.paging-list{
+    margin-top:20px;
+}
