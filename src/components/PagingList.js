@@ -2,7 +2,17 @@ import React,{Component} from 'react';
 import "../css/PagingList.css";
 
 class PagingList extends Component{
+    constructor(props){
+        super(props);
+        this.state={
+            pagingList:""
+        }
+    }
+    pageItemClicked=(page)=>{
+        this.props.pageItemClicked(page);
+    }
     render(){
+        this.state.pagingList=this.props.pagingList;
         return(
             <div class="paging-list">
                 <div class="row w-100 paging-list">
@@ -15,7 +25,13 @@ class PagingList extends Component{
                             </li>
                             
                             <div id="pageList">
-                            {/* ajax를 통해 pageList 호출 */}
+                                {
+                                    this.state.pagingList ? this.state.pagingList.map(page=>{
+                                        return(
+                                            <PageItem key={page} pageNumber={page} pageItemClicked={this.pageItemClicked}></PageItem>
+                                        )
+                                    }) : "Loading"
+                                }
                             </div>
 
                             <li class="page-item">
@@ -30,5 +46,16 @@ class PagingList extends Component{
         );
     }
 }
-
+class PageItem extends Component{
+    clicked=()=>{
+        this.props.pageItemClicked(this.props.pageNumber);
+    }
+    render() {
+        return (
+            <li class="page-item">
+                <a class={'page-link'} href="javascript:void(0);" data-page={this.props.pageNumber} onClick={this.clicked}>{this.props.pageNumber}</a>
+            </li>
+        )
+    }
+}
 export default PagingList
