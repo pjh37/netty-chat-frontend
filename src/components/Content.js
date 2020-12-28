@@ -1,10 +1,11 @@
 import React,{Component} from 'react';
+import {Route,Router,BrowserRouter,Switch} from 'react-router-dom';
 import MenuContainer from './MenuContainer';
 import RoomListContainer from './RoomListContainer';
 import PagingList from './PagingList';
-
-
-
+import ChatContainer from './ChatContainer';
+import Login from './Login';
+import SignUp from './SignUp';
 
 class Content extends Component{
 
@@ -56,8 +57,14 @@ class Content extends Component{
         return(
             <div class="container">
                 <MenuContainer></MenuContainer>
-                <RoomListContainer rooms={this.state.content.data}></RoomListContainer>
-                <PagingList pagingList={this.state.content.pageList} pageItemClicked={this.pageItemClick}></PagingList>
+                <Switch>
+                    <Route exact path="/">
+                        <RoomListContainer rooms={this.state.content.data}></RoomListContainer>
+                        <PagingList pagingList={this.state.content.pageList} pageItemClicked={this.pageItemClick}></PagingList>
+                    </Route>
+                    <Route path="/rooms/:room_id" component={ChatContainer} />
+                    
+                </Switch>
             </div>
         );
     }

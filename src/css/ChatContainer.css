@@ -1,0 +1,21 @@
+.chat-message-container{
+    width:800px;
+    height: 600px;
+    overflow-y: auto;
+    display: block;
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
+
+.chat-message-container::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+}
+
+.chat-input-container{
+    margin-top:10px;
+    width:800px;
+}
+
+#username{
+    width:800px;
+}

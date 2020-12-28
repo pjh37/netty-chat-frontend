@@ -1,4 +1,6 @@
 import React,{Component} from 'react';
+import {Link,Route} from 'react-router-dom';
+import ChatContainer from './ChatContainer';
 import '../css/RoomListContainer.css'; 
 
 class RoomListContainer extends Component{
@@ -12,19 +14,25 @@ class RoomListContainer extends Component{
 
     render(){
         console.log('RoomListContainer render')
-        this.state.rooms=this.props.rooms;
+        this.state.rooms = this.props.rooms;
+        var list = [];
+        if(this.state.rooms!=undefined){
+            this.state.rooms.map(room => {
+                list.push(
+                    <Link to={'/rooms/'+room.roomId}>
+                        <RoomItem key={room.roomId} roomId={room.roomId} title={room.title}></RoomItem>
+                    </Link>
+                )
+            }); 
+        }
+        
+
         return(
             <div class="roomlist-container">
                 <div class="list-group">
                     {/* ajax를 통해 roomList 호출 */}
-                    {
-                        this.state.rooms ?
-                        this.state.rooms.map(room => {
-                            return (
-                                <RoomItem key={room.roomId} roomId={room.roomId} title={room.title}></RoomItem>
-                            )
-                        }):"Loading"
-                    }
+                    {list}
+                    
                 </div>
             </div>
         );
@@ -35,6 +43,11 @@ class RoomItem extends Component{
     constructor(props){
         super(props);
     }
+
+    roomItemClicked=roomItem=>{
+        
+    }
+
     render(){
         return (
             <button type="button" class="list-group-item list-group-item-action"
