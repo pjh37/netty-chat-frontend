@@ -14,16 +14,16 @@ class Content extends Component{
         this.state={
             content:""
         }
-        console.log('constructor')
+        
         this.pageItemClick=this.pageItemClick.bind(this);
     }
 
     pageItemClick=pageItem=>{
         //this.setState({content:this.callRoomApi(pageItem)})
-        console.log("pageItem clicked! "+pageItem);
+        
         this.callRoomApi(pageItem)
         .then(res=>{
-            console.log('componentDidMount setstate')
+            
             this.setState({content:res})
             
         })
@@ -31,10 +31,10 @@ class Content extends Component{
     }
 
     componentDidMount(){
-        console.log('componentDidMount')
+       
         this.callRoomApi()
         .then(res=>{
-            console.log('componentDidMount setstate')
+            
             this.setState({content:res})
             
         })
@@ -42,27 +42,28 @@ class Content extends Component{
     }
 
     callRoomApi=async(args)=>{
-        console.log("args "+args)
+        
         if(args==undefined){
             args=1;
         }
-        const response=await fetch("http://localhost:8080/api/v1/rooms"+"?page="+args);
+        const response=await fetch("/api/v1/rooms"+"?page="+args);
         const body=await response.json();
         return body;
     }
 
     render(){
-        console.log('render')
+        
         
         return(
             <div class="container">
                 <MenuContainer></MenuContainer>
                 <Switch>
+                    
                     <Route exact path="/">
                         <RoomListContainer rooms={this.state.content.data}></RoomListContainer>
                         <PagingList pagingList={this.state.content.pageList} pageItemClicked={this.pageItemClick}></PagingList>
                     </Route>
-                    <Route path="/rooms/:room_id" component={ChatContainer} />
+                    
                     
                 </Switch>
             </div>

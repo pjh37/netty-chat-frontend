@@ -1,24 +1,30 @@
-import React,{Component} from 'react';
+import React,{Component,useState,useEffect} from 'react';
 import ReactDOM from 'react-dom';
-import {Route} from 'react-router-dom';
+import {Route,BrowserRouter as Router} from 'react-router-dom';
 import logo from './logo.svg';
 import './App.css';
 import Header from "./components/Header";
 import Content from "./components/Content";
 import Login from "./components/Login";
 import SignUp from "./components/SignUp";
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <Header/>
-        <Route exact path="/" component={Content}></Route>
-        <Route exact path="/login" component={Login}/>
-        <Route path="/signup" component={SignUp}/>
-      </div>
-    )
+import LoginCallback from "./components/LoginCallback";
+import ChatContainer from "./components/ChatContainer";
+function App(){
+  const [authenticated,setAuthenticated]=useState(false)
+  
+  
 
-  };
+  return (
+    <Router>
+      <Header authenticated={authenticated}/>
+       
+      <Route exact path="/" component={Content}/>
+      <Route path="/login" component={Login}/>
+      <Route path="/signup" component={SignUp} />
+      <Route path="/rooms/:room_id" component={ChatContainer} />
+      <Route path="/login/oauth2/code/github" component={LoginCallback} authenticated={authenticated} />
+    </Router>
+  )
 }
 
 export default App;

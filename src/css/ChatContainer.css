@@ -1,5 +1,5 @@
 .chat-message-container{
-    width:800px;
+    
     height: 600px;
     overflow-y: auto;
     display: block;
@@ -7,15 +7,44 @@
     scrollbar-width: none; /* Firefox */
 }
 
+.chat-container{
+    margin-top:30px;
+    display:block;
+}
+
 .chat-message-container::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Opera*/
+    /* display: none; Chrome, Safari, Opera */
 }
 
 .chat-input-container{
     margin-top:10px;
-    width:800px;
 }
 
-#username{
-    width:800px;
+#username, .chat-container, .chat-input-container, .chat-message-container{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.message{
+    word-break: keep-all;
+    word-wrap: break-word;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.my-message{
+    background:'#e8e6e3';
+    color:'black';
+}
+
+.your-message{
+    background:'#0d6efd';
+    color:'white';
+}
+
+.my-name{
+    color:#736b5e;
+}
+.your-name{
+    color:white;
 }

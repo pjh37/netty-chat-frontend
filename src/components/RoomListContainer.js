@@ -1,6 +1,5 @@
 import React,{Component} from 'react';
 import {Link,Route} from 'react-router-dom';
-import ChatContainer from './ChatContainer';
 import '../css/RoomListContainer.css'; 
 
 class RoomListContainer extends Component{
@@ -13,14 +12,15 @@ class RoomListContainer extends Component{
     }
 
     render(){
-        console.log('RoomListContainer render')
+        
         this.state.rooms = this.props.rooms;
         var list = [];
         if(this.state.rooms!=undefined){
             this.state.rooms.map(room => {
+                
                 list.push(
-                    <Link to={'/rooms/'+room.roomId}>
-                        <RoomItem key={room.roomId} roomId={room.roomId} title={room.title}></RoomItem>
+                    <Link to={'/rooms/'+room.roomId} key={room.roomId}>
+                        <RoomItem roomId={room.roomId} title={room.title}></RoomItem>
                     </Link>
                 )
             }); 
@@ -51,7 +51,7 @@ class RoomItem extends Component{
     render(){
         return (
             <button type="button" class="list-group-item list-group-item-action"
-                data-roomId={this.props.roomId}>
+                data-roomid={this.props.roomId}>
                 {this.props.title}
                 <span class="badge bg-success rounded-pill">21</span>
             </button>

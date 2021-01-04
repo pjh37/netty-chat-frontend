@@ -5,7 +5,8 @@ class PagingList extends Component{
     constructor(props){
         super(props);
         this.state={
-            pagingList:""
+            pagingList:"",
+            totalCount:""
         }
     }
     pageItemClicked=(page)=>{
