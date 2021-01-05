@@ -48,3 +48,9 @@
 .your-name{
     color:white;
 }
+
+#loading{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+}

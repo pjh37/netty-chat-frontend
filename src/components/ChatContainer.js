@@ -4,7 +4,7 @@ import '../css/ChatContainer.css';
 
 const uri = "ws://localhost:8081/ws";
 const websocket = new WebSocket(uri);
-
+var fetching=false;
 const myWebsocket={
     roomId:'',
     init:function(id){
@@ -124,27 +124,29 @@ const ChatItem=({item})=>(
     )
     
 )
-var fetching=false;
+const Spinner = () => (
+    <div class="spinner-border text-success" role="status" id="loading">
+        <span class="sr-only">Loading...</span>
+    </div>
+)
 function ChatContainer({match}){
     const [roomId,setRoomId]=useState(null)
     const [page,setPage]=useState(1)
     const [chatId,setChatId]=useState(-1)
     const [chatlist,setChatlist]=useState([])
-    //const [fetching,setFetching]=useState(false)
+    const [loading,setLoading]=useState(false)
     
     const fetchMoreMessage= async()=>{
-        fetching=true
+        setLoading(true)
         await chatListCallApi().then(chatItem=>{
-            console.log("chatListCallApi")
             const mergedData=chatItem.concat(chatlist)
-            
             // console.log(mergedData)
             setChatlist(mergedData)
             document.querySelector('.chat-message-container').scrollTo(0,
                 document.querySelector('.chat-message-container').clientHeight)
             fetching=false
+            setLoading(false)
         })
-        
     }
 
     useEffect(()=>{
@@ -155,18 +157,20 @@ function ChatContainer({match}){
     },[])
 
     useEffect(()=>{
-        console.log("useEffect fetchMoreMessage")
-        console.log("is fetching: "+fetching)
+        console.log("useEffect page: "+page)
         fetchMoreMessage()
+        
     },[page])
+
+    useEffect(()=>{
+        console.log("useEffect setLoading: "+loading)
+    },[loading])
 
     const handleScroll = (e) => {
         
         if (document.querySelector('.chat-message-container').scrollTop == 0&&fetching==false) {
             //document.querySelector('.chat-message-container').prepend('<div style="width: 600px; height: 200px;"><h1>Page ' + 'test' + '</h1></div>');
             fetching=true
-            
-            console.log("clientHeight: "+document.querySelector('.chat-message-container').scrollTop)
             nextPage()
         }
     }
@@ -180,7 +184,7 @@ function ChatContainer({match}){
 
     const chatListCallApi=async ()=>{
         var chatId=localStorage.getItem("lastMessage")
-        console.log("chatListCallApi: "+page)
+        //console.log("chatListCallApi: "+page)
         const response=await fetch("/api/v1/messages?"+"page="+page+"&roomId="+match.params.room_id)
         const body=await response.json()
         
@@ -194,10 +198,14 @@ function ChatContainer({match}){
         <div class="container">
             <div class="chat-container w-75">
                 <div class="chat-message-container card w-75" onScroll={handleScroll}>
+                    
                     {
-                        chatlist==null ? (''):chatlist.map(chatItem=>(
+                        chatlist==null ? (<Spinner></Spinner>):chatlist.map(chatItem=>(
                             <ChatItem key={chatItem.id} item={chatItem}></ChatItem>
                         ))
+                    }
+                    {
+                        loading==true ? (<Spinner></Spinner>):('')
                     }
                 </div>
                 <input type="text" class="form-control w-75" id="username" placeholder="닉네임" aria-label="username"
