@@ -1,12 +1,12 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 
-function LogoutButton({ logout, history }) {
+function LogoutButton(props) {
   const handleClick = () => {
-    logout();
-    history.push('/');
+    console.log(localStorage.getItem('username'))
+    props.history.push('/');
   }
-  return <button class='btn btn-secondary' onClick={handleClick}>Logout</button>;
+  return <button class='btn btn-secondary' onClick={handleClick}>{localStorage.getItem('username')}</button>;
 }
 
 export default withRouter(LogoutButton);
