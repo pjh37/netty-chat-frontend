@@ -33,13 +33,13 @@
 }
 
 .my-message{
-    background:'#e8e6e3';
-    color:'black';
+    background:#e8e6e3;
+    color:black;
 }
 
 .your-message{
-    background:'#0d6efd';
-    color:'white';
+    background:#0d6efd;
+    color:white;
 }
 
 .my-name{
