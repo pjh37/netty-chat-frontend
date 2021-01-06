@@ -3,24 +3,17 @@ import axios from 'axios';
 import qs from 'qs';
 import Cookies from 'js-cookie';
 
-function LoginCallback({history,location}) {
-    useEffect(()=>{
-        async function getToken(){
-            const {args}=qs.parse(location.search,{
-                ignoreQueryPrefix:true
-            })
-            try{
-                localStorage.setItem('username',Cookies.get('username'))
-                history.push('/')
-            }catch(error){
-                history.push('/error')
-            }
+function LoginCallback(props) {
 
-            
-    
+    useEffect(()=>{
+        try{
+            localStorage.setItem('username',Cookies.get('username'))
+            console.log('LoginCallback')
+            props.history.push('/')
+        }catch(error){
+            props.history.push('/error')
         }
-        getToken();
-    },[location,history])
+    })
 
     return null
 }
