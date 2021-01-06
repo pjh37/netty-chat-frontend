@@ -1,10 +1,17 @@
-import React,{Component} from 'react';
-import {Route,Router,BrowserRouter,Link} from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import {Link} from 'react-router-dom';
 import Cookies from 'js-cookie';
-import {GITHUB_AUTH_URL} from '../constants/index'
 import LogoutButton from './LogoutButton';
 import '../css/Header.css';
+
 function Header(props){
+    const [username,setUsername]=useState('')
+    useEffect(()=>{
+        if(Cookies.get('username')!=undefined){
+            setUsername(Cookies.get('username'))
+        }
+        console.log("header")
+    },[username])
     return (
         <header>
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -23,19 +30,25 @@ function Header(props){
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     {localStorage.getItem('username') != undefined ? (
-                        <LogoutButton logout={props.logout} username={localStorage.getItem('username')} />
+                        <div class="collapse navbar-collapse" id="navbarNav">
+                            <ul class="navbar-nav">
+                                <li class="nav-item">
+                                    <LogoutButton authenticated={props.authenticated} logout={props.logout} username={localStorage.getItem('username')} />
+                                </li>
+                            </ul>
+                        </div>  
                     ) : (
                             <div class="collapse navbar-collapse" id="navbarNav">
-                                <ul class="navbar-nav">
+                                <ul class="navbar-nav nav-menu">
                                     <li class="nav-item">
                                         <Link to={'/login'} class="nav-link headerMenu">
                                             로그인
-                                </Link>
+                                        </Link>
                                     </li>
                                     <li class="nav-item">
                                         <Link to={'/SignUp'} class="nav-link headerMenu">
                                             회원가입
-                                </Link>
+                                        </Link>
                                     </li>
                                 </ul>
                             </div>
