@@ -2,3 +2,12 @@
     color:rgb(232, 230, 227);
     margin-right:5px;
 }
+.nav-menu{
+    left: 90%;
+    position: relative;
+    margin: 5px 5px 5px 5px;
+}
+
+#logout{
+    color:rgb(232, 230, 227);
+}
