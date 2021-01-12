@@ -1,0 +1,15 @@
+a { 
+    text-decoration:none !important;
+    color:#e8e6e3;
+}
+
+a:hover { text-decoration:none !important }
+
+.content-item{
+    height:200px;
+    margin:5px 5px 5px 5px;
+}
+
+.content-item:hover{
+    transform: scale( 1.05 );
+}
