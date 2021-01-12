@@ -18,13 +18,10 @@ function Header(props){
                 <div class="container-fluid">
                     
                     <Link to='/' class="navbar-brand">
-                        ChatService
+                        Netty
                     </Link>
 
-                    <form class="d-flex">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                        <button class="btn btn-outline-success" type="submit">Search</button>
-                    </form>
+                    
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" 
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
