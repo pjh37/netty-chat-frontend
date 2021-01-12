@@ -1,5 +1,6 @@
 export const uri = "ws://localhost:8081/ws";
 export const websocket = new WebSocket(uri);
+export const scrollEnd=1000000000;
 export const myWebsocket={
     roomId:'',
     init:function(id){
@@ -26,7 +27,7 @@ export const myWebsocket={
         if(websocket.readyState===WebSocket.OPEN){
             console.log("웹소켓 열려있음")
             _this.roomEnter(id);
-            return
+            
         }else{
             console.log("웹소켓 닫혀있음")
             websocket.onopen = (e)=> {
@@ -69,12 +70,13 @@ export const myWebsocket={
         
     },
     onSend: function () {
+        
         var message = document.querySelector('#message-input').value;
         var _this=this;
         var msg = {
             command: "CHAT_LOG_RECEIVE",
             body: {
-                username: document.querySelector('#username').value,
+                username: localStorage.getItem('username'),
                 content: message,
                 roomId: _this.roomId
             }
@@ -86,7 +88,7 @@ export const myWebsocket={
     onReceive: function (e) {
         var _this=this;
         let data = JSON.parse(e.data);
-        if(data.roomId!=_this.roomId){
+        if(data.roomId!==_this.roomId){
             return
         }
         let messageElem = document.createElement('div');
@@ -101,7 +103,7 @@ export const myWebsocket={
         messageElem.style.wordWrap = "break-word";
         messageElem.style.marginTop = "10px";
         messageElem.style.marginLeft = "10px";
-        if (document.querySelector('#username').value == data.username) {
+        if (localStorage.getItem('username') === data.username) {
             nicNameElem.style.color = "#736b5e";
             messageElem.style.background = '#e8e6e3';
             messageElem.style.color = 'black';
@@ -111,6 +113,26 @@ export const myWebsocket={
             messageElem.style.color = 'white';
         }
         messageElem.prepend(nicNameElem);
+        console.log("scrollTop: "+document.querySelector('.chat-message-container').scrollTop)
+        console.log("scrollHeight: "+document.querySelector('.chat-message-container').scrollHeight)
+        console.log("clientHeight: "+document.querySelector('.chat-message-container').clientHeight)
+        
         document.querySelector('.chat-message-container').append(messageElem)
+
+        console.log("after")
+        console.log("scrollTop: "+document.querySelector('.chat-message-container').scrollTop)
+        console.log("scrollHeight: "+document.querySelector('.chat-message-container').scrollHeight)
+        console.log("clientHeight: "+document.querySelector('.chat-message-container').clientHeight)
+        console.log('messageElem height: '+messageElem.clientHeight)
+        // 스크롤이 맨아래 있으면 새로운 메세지 수신할 경우 맨 아래로 내려주기
+        if (document.querySelector('.chat-message-container').scrollTop >= 
+        document.querySelector('.chat-message-container').scrollHeight-
+        document.querySelector('.chat-message-container').clientHeight-
+        messageElem.clientHeight-12) {
+            console.log("맨아래 스크롤 위치")
+            
+            document.querySelector('.chat-message-container').scrollTo(0,scrollEnd)
+        }
+
     }
 }
