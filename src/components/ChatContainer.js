@@ -33,8 +33,11 @@ function ChatContainer({match}){
     const fetchMoreMessage= async()=>{
         setLoading(true)
         await chatListCallApi().then(chatItem=>{
+            if(chatItem.length==0){
+                setLoading(false);
+                return;
+            }
             const mergedData=chatItem.concat(chatlist)
-            // console.log(mergedData)
             setChatlist(mergedData)
             document.querySelector('.chat-message-container').scrollTo(0,
                 document.querySelector('.chat-message-container').clientHeight)
@@ -61,13 +64,12 @@ function ChatContainer({match}){
     },[loading])
 
     const handleScroll = (e) => {
-        
         if (document.querySelector('.chat-message-container').scrollTop == 0&&fetching==false) {
-            //document.querySelector('.chat-message-container').prepend('<div style="width: 600px; height: 200px;"><h1>Page ' + 'test' + '</h1></div>');
             fetching=true
             nextPage()
         }
     }
+
     const prevPage=()=>{
         setPage(page-1)
     }
@@ -85,9 +87,6 @@ function ChatContainer({match}){
         return body;
     }
     
-
-    
-
     return (
         <div class="container">
             <div class="chat-container w-75">
@@ -102,8 +101,7 @@ function ChatContainer({match}){
                         loading==true ? (<Loading/>):('')
                     }
                 </div>
-                <input type="text" class="form-control w-75" id="username" placeholder="닉네임" aria-label="username"
-                    aria-describedby="username" />
+                
                 <div class="chat-input-container input-group w-75">
 
                     <input type="text" class="form-control" id="message-input" placeholder="입력해주세요" aria-label="message-input"
