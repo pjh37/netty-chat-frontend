@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import {Route,Router,BrowserRouter,Link} from 'react-router-dom';
-import { GithubLoginButton,createButton,createSvgIcon } from "react-social-login-buttons";
-import {GITHUB_AUTH_URL} from '../constants/index'
+import { GithubLoginButton,GoogleLoginButton } from "react-social-login-buttons";
+import {GITHUB_AUTH_URL,GOOGLE_AUTH_URL} from '../constants/index'
 import Header from './Header';
 import SignUp from './SignUp';
 import "../css/Login.css";
@@ -30,7 +30,9 @@ function Login(props){
                 <a href={GITHUB_AUTH_URL}>
                     <GithubLoginButton />
                 </a>
-                
+                <a href={GOOGLE_AUTH_URL}>
+                    <GoogleLoginButton />
+                </a>
             </div>
         </div>
 
