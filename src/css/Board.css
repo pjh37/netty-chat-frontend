@@ -1,0 +1,6 @@
+.board-container{
+    overflow-y: auto;
+    display: block;
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
