@@ -113,17 +113,11 @@ export const myWebsocket={
             messageElem.style.color = 'white';
         }
         messageElem.prepend(nicNameElem);
-        console.log("scrollTop: "+document.querySelector('.chat-message-container').scrollTop)
-        console.log("scrollHeight: "+document.querySelector('.chat-message-container').scrollHeight)
-        console.log("clientHeight: "+document.querySelector('.chat-message-container').clientHeight)
+        
         
         document.querySelector('.chat-message-container').append(messageElem)
 
-        console.log("after")
-        console.log("scrollTop: "+document.querySelector('.chat-message-container').scrollTop)
-        console.log("scrollHeight: "+document.querySelector('.chat-message-container').scrollHeight)
-        console.log("clientHeight: "+document.querySelector('.chat-message-container').clientHeight)
-        console.log('messageElem height: '+messageElem.clientHeight)
+        
         // 스크롤이 맨아래 있으면 새로운 메세지 수신할 경우 맨 아래로 내려주기
         if (document.querySelector('.chat-message-container').scrollTop >= 
         document.querySelector('.chat-message-container').scrollHeight-
